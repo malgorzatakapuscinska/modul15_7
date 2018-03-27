@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "startAll": "parallelshell \"npm run server\" \"npm run start\"",
+    "startAll": "parallelshell \"npm run server\" \"npm run start\" \"npm run watch:sass\"",
     "server": "http-server",
-    "start": "babel script.js --watch --out-file script-compiled.js"
+    "start": "babel script.js --watch --out-file script-compiled.js",
+    "watch:sass": "node-sass --output-style expanded sass/style.scss css/style.css --watch"
   },
   "repository": {
     "type": "git",
@@ -21,8 +22,13 @@
   "homepage": "https://github.com/malgorzatakapuscinska/modul15_3#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.6.1",
     "http-server": "^0.11.1",
+    "node-sass": "^4.8.3",
+    "npm-run-all": "^4.1.2",
+    "nu-html-checker": "^0.1.0",
     "parallelshell": "^3.0.2"
   }
 }
