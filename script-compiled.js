@@ -122,7 +122,38 @@ var StopWatch = function (_React$Component) {
 			_this.setState({ history: [] });
 		};
 
-		_this.changeTab = function () {};
+		_this.changeTab = function () {
+			console.log(_this.state.activeTab);
+			var state = _this.state.activeTab;
+			if (state === 'tab-1') {
+				_this.state.activeTab = 'tab-2';
+				_this.setState({
+					tab2Style: {
+						display: 'block'
+					}
+				});
+				_this.setState({
+					tab1Style: {
+						display: 'none'
+					}
+				});
+				console.log(_this.state.activeTab);
+				console.log(_this.state.tab2Style);
+				console.log(_this.state.tab1Style);
+			} else {
+				_this.state.activeTab = 'tab-1';
+				_this.setState({
+					tab2Style: {
+						display: 'none'
+					}
+				});
+				_this.setState({
+					tab1Style: {
+						display: 'block'
+					}
+				});
+			}
+		};
 
 		_this.render = function () {
 			return React.createElement(
@@ -137,7 +168,9 @@ var StopWatch = function (_React$Component) {
 						' ',
 						React.createElement(
 							'a',
-							{ className: 'tab-control', href: '#tab-1' },
+							{ className: 'tab-control', href: '#tab-1', onClick: function onClick() {
+									return _this.changeTab();
+								} },
 							'StopWatch'
 						)
 					),
@@ -146,14 +179,16 @@ var StopWatch = function (_React$Component) {
 						null,
 						React.createElement(
 							'a',
-							{ className: 'tab-control', href: '#tab-2' },
+							{ className: 'tab-control', href: '#tab-2', onClick: function onClick() {
+									return _this.changeTab();
+								} },
 							'Results'
 						)
 					)
 				),
 				React.createElement(
 					'div',
-					{ className: 'tab-panel', id: 'tab-1', style: activeTabStyle },
+					{ className: 'tab-panel', id: 'tab-1', style: _this.state.tab1Style },
 					React.createElement(
 						'nav',
 						null,
@@ -195,7 +230,7 @@ var StopWatch = function (_React$Component) {
 					),
 					React.createElement(Display, { time: _this.format() })
 				),
-				React.createElement(Results, { history: _this.state.history, className: 'tab-panel', id: 'tab-2', style: defaultStyle })
+				React.createElement(Results, { history: _this.state.history, style: _this.state.tab2Style, className: 'tab-panel', id: 'tab-2' })
 			);
 		};
 
@@ -207,7 +242,13 @@ var StopWatch = function (_React$Component) {
 				miliseconds: 0
 			},
 			history: [],
-			activeTab: 'tab-1'
+			activeTab: 'tab-1',
+			tab1Style: {
+				display: 'block'
+			},
+			tab2Style: {
+				display: 'none'
+			}
 		};
 
 		return _this;
@@ -251,10 +292,12 @@ var Results = function (_React$Component3) {
 	_createClass(Results, [{
 		key: 'render',
 		value: function render() {
+			var tab2style = this.props.style;
+			console.log(tab2style);
 			var results = this.props.history.map(function (ele) {
 				return React.createElement('li', { key: ele.id }, ele.record);
 			});
-			return React.createElement('ol', { className: 'results', style: defaultStyle }, React.createElement('p', {}, "Results"), results);
+			return React.createElement('ol', { className: 'results', style: tab2style }, React.createElement('p', {}, "Results"), results);
 		}
 	}]);
 
@@ -263,7 +306,8 @@ var Results = function (_React$Component3) {
 
 Results.propTypes = {
 
-	history: React.PropTypes.array.isRequired
+	history: React.PropTypes.array.isRequired,
+	style: React.PropTypes.object.isRequired
 
 };
 

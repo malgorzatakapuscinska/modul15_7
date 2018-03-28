@@ -16,7 +16,13 @@ class StopWatch extends React.Component {
 				miliseconds: 0,
 			},
 			history: [],
-			activeTab: 'tab-1'
+			activeTab: 'tab-1',
+			tab1Style: {
+				display: 'block',
+			},
+			tab2Style: {
+				display: 'none',
+			}
 		};
 		
 	}
@@ -117,6 +123,36 @@ class StopWatch extends React.Component {
 	}
 	
 	changeTab = () => {
+	console.log(this.state.activeTab);
+	let state = this.state.activeTab;
+		if(state === 'tab-1'){
+			this.state.activeTab = 'tab-2';
+			this.setState({
+				tab2Style: {
+					display: 'block',
+				}
+			});
+			this.setState({
+				tab1Style: {
+					display: 'none',
+				}
+			});
+		console.log(this.state.activeTab);
+		console.log(this.state.tab2Style);
+		console.log(this.state.tab1Style);
+	}else {
+		this.state.activeTab = 'tab-1';
+		this.setState({
+				tab2Style: {
+					display: 'none',
+				}
+		});
+		this.setState({
+				tab1Style: {
+					display: 'block',
+				}
+		});
+	}
 		
 	}
 	
@@ -124,11 +160,11 @@ class StopWatch extends React.Component {
 		return (
 			<div className = {'container'}>
 				<ul className = {'tab-list'}>
-					<li className = {'active'}> <a className = {'tab-control'} href = {'#tab-1'}>StopWatch</a></li>
-					<li><a className = {'tab-control'} href = {'#tab-2'}>Results</a></li>
+					<li className = {'active'}> <a className = {'tab-control'} href = {'#tab-1'} onClick = {() => this.changeTab()}>StopWatch</a></li>
+					<li><a className = {'tab-control'} href = {'#tab-2'} onClick = {() => this.changeTab()}>Results</a></li>
 					
 				</ul>
-				<div className = {'tab-panel'} id = {'tab-1'} style = {activeTabStyle}>
+				<div className = {'tab-panel'} id = {'tab-1'} style = {this.state.tab1Style}>
 					<nav>
 						<a href = {'#'} className = {'button'} id = {'start'} onClick = {() => this.start()}>start</a>
 						<a href = {'#'} className = {'button'} id = {'stop'} onClick = {() => {this.stop()}}>stop</a>
@@ -138,7 +174,7 @@ class StopWatch extends React.Component {
 	 				</nav>
 					<Display time={this.format()}></Display>
 				</div>
-				<Results history = {this.state.history} className = {'tab-panel'} id = {'tab-2'} style = {defaultStyle}></Results>
+				<Results history = {this.state.history} style = {this.state.tab2Style} className = {'tab-panel'} id = {'tab-2'}></Results>
 				
 			</div>
 		);
@@ -170,16 +206,19 @@ class Results extends React.Component{
 	
 	static propTypes = {
 
-		history: React.PropTypes.array.isRequired
+		history: React.PropTypes.array.isRequired,
+		style: React.PropTypes.object.isRequired
 
 	}
 	
 	render () {
+		let tab2style =  this.props.style;
+		console.log(tab2style);
 		let results = this.props.history.map( ele  => { 
 		return React.createElement('li', {key: ele.id}, ele.record)
 	});
 		return (
-			React.createElement('ol', {className: 'results', style: defaultStyle},
+			React.createElement('ol', {className: 'results', style: tab2style},
 				React.createElement('p', {}, "Results"), 
 				results
 			)
