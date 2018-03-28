@@ -10,6 +10,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var activeTabStyle = {
+	display: 'block'
+};
+var defaultStyle = {
+	display: 'none'
+};
+
 var StopWatch = function (_React$Component) {
 	_inherits(StopWatch, _React$Component);
 
@@ -115,6 +122,8 @@ var StopWatch = function (_React$Component) {
 			_this.setState({ history: [] });
 		};
 
+		_this.changeTab = function () {};
+
 		_this.render = function () {
 			return React.createElement(
 				'div',
@@ -128,7 +137,7 @@ var StopWatch = function (_React$Component) {
 						' ',
 						React.createElement(
 							'a',
-							{ className: 'tab-control', href: 'tab-1' },
+							{ className: 'tab-control', href: '#tab-1' },
 							'StopWatch'
 						)
 					),
@@ -137,14 +146,14 @@ var StopWatch = function (_React$Component) {
 						null,
 						React.createElement(
 							'a',
-							{ className: 'tab-control', href: 'tab-2' },
+							{ className: 'tab-control', href: '#tab-2' },
 							'Results'
 						)
 					)
 				),
 				React.createElement(
 					'div',
-					{ className: 'tab-panel active', id: 'tab-1' },
+					{ className: 'tab-panel', id: 'tab-1', style: activeTabStyle },
 					React.createElement(
 						'nav',
 						null,
@@ -186,7 +195,7 @@ var StopWatch = function (_React$Component) {
 					),
 					React.createElement(Display, { time: _this.format() })
 				),
-				React.createElement(Results, { history: _this.state.history, className: 'tab-panel', id: 'tab-2' })
+				React.createElement(Results, { history: _this.state.history, className: 'tab-panel', id: 'tab-2', style: defaultStyle })
 			);
 		};
 
@@ -197,7 +206,8 @@ var StopWatch = function (_React$Component) {
 				seconds: 0,
 				miliseconds: 0
 			},
-			history: []
+			history: [],
+			activeTab: 'tab-1'
 		};
 
 		return _this;
@@ -244,7 +254,7 @@ var Results = function (_React$Component3) {
 			var results = this.props.history.map(function (ele) {
 				return React.createElement('li', { key: ele.id }, ele.record);
 			});
-			return React.createElement('ol', { className: 'results' }, React.createElement('p', {}, "Results"), results);
+			return React.createElement('ol', { className: 'results', style: defaultStyle }, React.createElement('p', {}, "Results"), results);
 		}
 	}]);
 

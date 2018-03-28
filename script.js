@@ -1,3 +1,10 @@
+let activeTabStyle = {
+			display: 'block',
+		};
+let defaultStyle = {
+			display: 'none',
+};
+
 class StopWatch extends React.Component {
 	constructor(props){
 		super(props);
@@ -8,7 +15,8 @@ class StopWatch extends React.Component {
 				seconds: 0,
 				miliseconds: 0,
 			},
-			history: []
+			history: [],
+			activeTab: 'tab-1'
 		};
 		
 	}
@@ -108,15 +116,19 @@ class StopWatch extends React.Component {
 		this.setState({ history: [] });
 	}
 	
+	changeTab = () => {
+		
+	}
+	
 	render = () => {
 		return (
 			<div className = {'container'}>
 				<ul className = {'tab-list'}>
-					<li className = {'active'}> <a className = {'tab-control'} href = {'tab-1'}>StopWatch</a></li>
-					<li><a className = {'tab-control'} href = {'tab-2'}>Results</a></li>
+					<li className = {'active'}> <a className = {'tab-control'} href = {'#tab-1'}>StopWatch</a></li>
+					<li><a className = {'tab-control'} href = {'#tab-2'}>Results</a></li>
 					
 				</ul>
-				<div className = {'tab-panel active'} id = {'tab-1'}>
+				<div className = {'tab-panel'} id = {'tab-1'} style = {activeTabStyle}>
 					<nav>
 						<a href = {'#'} className = {'button'} id = {'start'} onClick = {() => this.start()}>start</a>
 						<a href = {'#'} className = {'button'} id = {'stop'} onClick = {() => {this.stop()}}>stop</a>
@@ -126,7 +138,7 @@ class StopWatch extends React.Component {
 	 				</nav>
 					<Display time={this.format()}></Display>
 				</div>
-				<Results history = {this.state.history} className = {'tab-panel'} id = {'tab-2'}></Results>
+				<Results history = {this.state.history} className = {'tab-panel'} id = {'tab-2'} style = {defaultStyle}></Results>
 				
 			</div>
 		);
@@ -167,7 +179,7 @@ class Results extends React.Component{
 		return React.createElement('li', {key: ele.id}, ele.record)
 	});
 		return (
-			React.createElement('ol', {className: 'results'},
+			React.createElement('ol', {className: 'results', style: defaultStyle},
 				React.createElement('p', {}, "Results"), 
 				results
 			)
