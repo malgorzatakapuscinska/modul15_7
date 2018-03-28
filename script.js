@@ -15,7 +15,7 @@ class StopWatch extends React.Component {
 			},
 			tab2Style: {
 				display: 'none',
-			}
+			},
 		};
 		
 	}
@@ -151,23 +151,27 @@ class StopWatch extends React.Component {
 	
 	render = () => {
 		return (
-			<div className = {'container'}>
-				<ul className = {'tab-list'}>
-					<li className = {'active'}> <a className = {'tab-control'} href = {'#tab-1'} onClick = {() => this.changeTab()}>StopWatch</a></li>
-					<li><a className = {'tab-control'} href = {'#tab-2'} onClick = {() => this.changeTab()}>Results</a></li>
-					
-				</ul>
-				<div className = {'tab-panel'} id = {'tab-1'} style = {this.state.tab1Style}>
-					<nav>
-						<a href = {'#'} className = {'button'} id = {'start'} onClick = {() => this.start()}>start</a>
-						<a href = {'#'} className = {'button'} id = {'stop'} onClick = {() => {this.stop()}}>stop</a>
-						<a href = {'#'} className = {'button'} id = {'clear'} onClick = {() => this.clear()}>Clear</a>
-						<a href = {'#'} className = {'button'} id = {'Add'} onClick = {() => this.addTime()}>Add result</a>
-						<a href = {'#'} className = {'button'} id = {'clear-results'} onClick = {() => this.clearHistory()}>Clear History</a>
-	 				</nav>
-					<Display time={this.format()}></Display>
+			<div className = {'app-container'}>
+				<div className = {'menu'}>
+					<ul id = {'tab-list'}>
+						<li className = {'active'}><a className = {'tab-control'} href = {'#tab-1'} onClick = {() => this.changeTab()}>StopWatch</a></li>
+						<li><a className = {'tab-control'} href = {'#tab-2'} onClick = {() => this.changeTab()}>Results</a></li>
+					</ul>
 				</div>
-				<Results history = {this.state.history} style = {this.state.tab2Style} className = {'tab-panel'} id = {'tab-2'}></Results>
+				<a className = {'toggle-button'} href = {'#tab-list'} type = {'button'}><span>Menu</span></a>
+				<div className = {'container'}>
+					<div className = {'tab-panel'} id = {'tab-1'} style = {this.state.tab1Style}>
+						<nav>
+							<a href = {'#'} className = {'button'} id = {'start'} onClick = {() => this.start()}>start</a>
+							<a href = {'#'} className = {'button'} id = {'stop'} onClick = {() => {this.stop()}}>stop</a>
+							<a href = {'#'} className = {'button'} id = {'clear'} onClick = {() => this.clear()}>Clear</a>
+							<a href = {'#'} className = {'button'} id = {'Add'} onClick = {() => this.addTime()}>Add result</a>
+							<a href = {'#'} className = {'button'} id = {'clear-results'} onClick = {() => this.clearHistory()}>Clear History</a>
+		 				</nav>
+						<Display time={this.format()}></Display>
+					</div>
+					<Results history = {this.state.history} style = {this.state.tab2Style} className = {'tab-panel'} id = {'tab-2'}></Results>
+				</div>
 				
 			</div>
 		);

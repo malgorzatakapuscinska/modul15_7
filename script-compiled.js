@@ -151,79 +151,95 @@ var StopWatch = function (_React$Component) {
 		_this.render = function () {
 			return React.createElement(
 				'div',
-				{ className: 'container' },
+				{ className: 'app-container' },
 				React.createElement(
-					'ul',
-					{ className: 'tab-list' },
+					'div',
+					{ className: 'menu' },
 					React.createElement(
-						'li',
-						{ className: 'active' },
-						' ',
+						'ul',
+						{ id: 'tab-list' },
 						React.createElement(
-							'a',
-							{ className: 'tab-control', href: '#tab-1', onClick: function onClick() {
-									return _this.changeTab();
-								} },
-							'StopWatch'
-						)
-					),
-					React.createElement(
-						'li',
-						null,
+							'li',
+							{ className: 'active' },
+							React.createElement(
+								'a',
+								{ className: 'tab-control', href: '#tab-1', onClick: function onClick() {
+										return _this.changeTab();
+									} },
+								'StopWatch'
+							)
+						),
 						React.createElement(
-							'a',
-							{ className: 'tab-control', href: '#tab-2', onClick: function onClick() {
-									return _this.changeTab();
-								} },
-							'Results'
+							'li',
+							null,
+							React.createElement(
+								'a',
+								{ className: 'tab-control', href: '#tab-2', onClick: function onClick() {
+										return _this.changeTab();
+									} },
+								'Results'
+							)
 						)
 					)
 				),
 				React.createElement(
-					'div',
-					{ className: 'tab-panel', id: 'tab-1', style: _this.state.tab1Style },
+					'a',
+					{ className: 'toggle-button', href: '#tab-list', type: 'button' },
 					React.createElement(
-						'nav',
+						'span',
 						null,
-						React.createElement(
-							'a',
-							{ href: '#', className: 'button', id: 'start', onClick: function onClick() {
-									return _this.start();
-								} },
-							'start'
-						),
-						React.createElement(
-							'a',
-							{ href: '#', className: 'button', id: 'stop', onClick: function onClick() {
-									_this.stop();
-								} },
-							'stop'
-						),
-						React.createElement(
-							'a',
-							{ href: '#', className: 'button', id: 'clear', onClick: function onClick() {
-									return _this.clear();
-								} },
-							'Clear'
-						),
-						React.createElement(
-							'a',
-							{ href: '#', className: 'button', id: 'Add', onClick: function onClick() {
-									return _this.addTime();
-								} },
-							'Add result'
-						),
-						React.createElement(
-							'a',
-							{ href: '#', className: 'button', id: 'clear-results', onClick: function onClick() {
-									return _this.clearHistory();
-								} },
-							'Clear History'
-						)
-					),
-					React.createElement(Display, { time: _this.format() })
+						'Menu'
+					)
 				),
-				React.createElement(Results, { history: _this.state.history, style: _this.state.tab2Style, className: 'tab-panel', id: 'tab-2' })
+				React.createElement(
+					'div',
+					{ className: 'container' },
+					React.createElement(
+						'div',
+						{ className: 'tab-panel', id: 'tab-1', style: _this.state.tab1Style },
+						React.createElement(
+							'nav',
+							null,
+							React.createElement(
+								'a',
+								{ href: '#', className: 'button', id: 'start', onClick: function onClick() {
+										return _this.start();
+									} },
+								'start'
+							),
+							React.createElement(
+								'a',
+								{ href: '#', className: 'button', id: 'stop', onClick: function onClick() {
+										_this.stop();
+									} },
+								'stop'
+							),
+							React.createElement(
+								'a',
+								{ href: '#', className: 'button', id: 'clear', onClick: function onClick() {
+										return _this.clear();
+									} },
+								'Clear'
+							),
+							React.createElement(
+								'a',
+								{ href: '#', className: 'button', id: 'Add', onClick: function onClick() {
+										return _this.addTime();
+									} },
+								'Add result'
+							),
+							React.createElement(
+								'a',
+								{ href: '#', className: 'button', id: 'clear-results', onClick: function onClick() {
+										return _this.clearHistory();
+									} },
+								'Clear History'
+							)
+						),
+						React.createElement(Display, { time: _this.format() })
+					),
+					React.createElement(Results, { history: _this.state.history, style: _this.state.tab2Style, className: 'tab-panel', id: 'tab-2' })
+				)
 			);
 		};
 
