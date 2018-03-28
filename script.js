@@ -1,10 +1,3 @@
-let activeTabStyle = {
-			display: 'block',
-		};
-let defaultStyle = {
-			display: 'none',
-};
-
 class StopWatch extends React.Component {
 	constructor(props){
 		super(props);
