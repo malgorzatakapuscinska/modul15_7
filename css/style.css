@@ -78,3 +78,7 @@ a:hover {
 .results li {
   list-style-type: none;
 }
+
+.tab-list li {
+  display: inline-block;
+}

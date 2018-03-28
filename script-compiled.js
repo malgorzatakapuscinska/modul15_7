@@ -120,46 +120,73 @@ var StopWatch = function (_React$Component) {
 				'div',
 				{ className: 'container' },
 				React.createElement(
-					'nav',
-					null,
+					'ul',
+					{ className: 'tab-list' },
 					React.createElement(
-						'a',
-						{ href: '#', className: 'button', id: 'start', onClick: function onClick() {
-								return _this.start();
-							} },
-						'start'
+						'li',
+						{ className: 'active' },
+						' ',
+						React.createElement(
+							'a',
+							{ className: 'tab-control', href: 'tab-1' },
+							'StopWatch'
+						)
 					),
 					React.createElement(
-						'a',
-						{ href: '#', className: 'button', id: 'stop', onClick: function onClick() {
-								_this.stop();
-							} },
-						'stop'
-					),
-					React.createElement(
-						'a',
-						{ href: '#', className: 'button', id: 'clear', onClick: function onClick() {
-								return _this.clear();
-							} },
-						'Clear'
-					),
-					React.createElement(
-						'a',
-						{ href: '#', className: 'button', id: 'Add', onClick: function onClick() {
-								return _this.addTime();
-							} },
-						'Add result'
-					),
-					React.createElement(
-						'a',
-						{ href: '#', className: 'button', id: 'clear-results', onClick: function onClick() {
-								return _this.clearHistory();
-							} },
-						'Clear Historys'
+						'li',
+						null,
+						React.createElement(
+							'a',
+							{ className: 'tab-control', href: 'tab-2' },
+							'Results'
+						)
 					)
 				),
-				React.createElement(Display, { time: _this.format() }),
-				React.createElement(Results, { history: _this.state.history })
+				React.createElement(
+					'div',
+					{ className: 'tab-panel active', id: 'tab-1' },
+					React.createElement(
+						'nav',
+						null,
+						React.createElement(
+							'a',
+							{ href: '#', className: 'button', id: 'start', onClick: function onClick() {
+									return _this.start();
+								} },
+							'start'
+						),
+						React.createElement(
+							'a',
+							{ href: '#', className: 'button', id: 'stop', onClick: function onClick() {
+									_this.stop();
+								} },
+							'stop'
+						),
+						React.createElement(
+							'a',
+							{ href: '#', className: 'button', id: 'clear', onClick: function onClick() {
+									return _this.clear();
+								} },
+							'Clear'
+						),
+						React.createElement(
+							'a',
+							{ href: '#', className: 'button', id: 'Add', onClick: function onClick() {
+									return _this.addTime();
+								} },
+							'Add result'
+						),
+						React.createElement(
+							'a',
+							{ href: '#', className: 'button', id: 'clear-results', onClick: function onClick() {
+									return _this.clearHistory();
+								} },
+							'Clear History'
+						)
+					),
+					React.createElement(Display, { time: _this.format() })
+				),
+				React.createElement(Results, { history: _this.state.history, className: 'tab-panel', id: 'tab-2' })
 			);
 		};
 
@@ -217,7 +244,7 @@ var Results = function (_React$Component3) {
 			var results = this.props.history.map(function (ele) {
 				return React.createElement('li', { key: ele.id }, ele.record);
 			});
-			return React.createElement('ul', { className: 'results' }, results);
+			return React.createElement('ol', { className: 'results' }, React.createElement('p', {}, "Results"), results);
 		}
 	}]);
 
