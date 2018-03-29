@@ -9,16 +9,30 @@ class StopWatch extends React.Component {
 				miliseconds: 0,
 			},
 			history: [],
+			
 			activeTab: 'tab-1',
-			tab1Style: {
+			tabStyles: {
 				display: 'block',
+				className: 'active',
 			},
 			tab2Style: {
 				display: 'none',
+				classname: '',
 			},
+			
+			tabsState: [
+				{name: 'tab-1', style: 'display: "block"'},
+				{name: 'tab-2', style: 'display: "none"'},
+			],
+			buttonsState: [
+				{name: 'stopwatch', state: 'active', className: 'active'},
+				{name: 'results', state: 'not active', className: ''},
+			]
 		};
 		
 	}
+
+	
 	
 	reset = () => {
 		this.setState({
@@ -29,7 +43,6 @@ class StopWatch extends React.Component {
 			}
 		});
 	}
-	a
 	pad0 = (value) => {
 		let result = value.toString();
 		const resultLength = result.length;
@@ -113,49 +126,95 @@ class StopWatch extends React.Component {
 	
 	clearHistory = () => {
 		this.setState({ history: [] });
+	}	
+	
+	checkButtonState = (value) => {
+		const buttonName = value;
+		const state = this.state.buttonsState;
+		const getButtonState = (state) => {
+			return (state.name === buttonName);
+		}
+		
+		const buttonState = state.filter(getButtonState)[0].state;
+		console.log(buttonState);
+		return `${buttonState}`;
 	}
 	
-	changeTab = () => {
+	changeTab = (value, target) => {
+		console.log(value);
+		console.log(target);
+		let buttonState = this.checkButtonState(value);
+		console.log(buttonState);
+		
+		if(buttonState === 'active'){return;
+		}else {
+			
+				switch(target){
+					case 'tab-1':
+							//stan tabów
+							
+								// TAB-1 
+								
+					const tabsState =  [
+	        		{ name: 'tab-1', style: 'display: "block"' },
+	        		{ name: 'tab-2', style: 'display: "none"' },];
+	        		
+	        		
+			  		
+			  		console.log(mapWork);
+			
+	 				this.setState({
+			 			tabsState: tabsState.map(state => ({...state, style: 'display: "none" '}))
+			  			});
+					});
+					console.log(this.state.tabsState);
+				}
+		}
+	}
+	
+	/*changeTab = (button, switch_Target ) => {
 	console.log(this.state.activeTab);
-	let state = this.state.activeTab;
+		let state = this.state.activeTab;
 		if(state === 'tab-1'){
 			this.state.activeTab = 'tab-2';
 			this.setState({
 				tab2Style: {
 					display: 'block',
+					className: 'active'
 				}
 			});
 			this.setState({
 				tab1Style: {
 					display: 'none',
+					className: ''
 				}
 			});
-		console.log(this.state.activeTab);
-		console.log(this.state.tab2Style);
-		console.log(this.state.tab1Style);
-	}else {
-		this.state.activeTab = 'tab-1';
-		this.setState({
-				tab2Style: {
-					display: 'none',
-				}
-		});
-		this.setState({
-				tab1Style: {
-					display: 'block',
-				}
-		});
-	}
-		
-	}
+			console.log(this.state.activeTab);
+			console.log(this.state.tab2Style);
+			console.log(this.state.tab1Style);
+		}else {
+			this.state.activeTab = 'tab-1';
+			this.setState({
+					tab2Style: {
+						display: 'none',
+					}
+			});
+			this.setState({
+					tab1Style: {
+						display: 'block',
+					}
+			});
+		}
+	}*/
 	
 	render = () => {
+		
 		return (
 			<div className = {'app-container'}>
 				<div className = {'menu'}>
 					<ul id = {'tab-list'}>
-						<li className = {'active'}><a className = {'tab-control'} href = {'#tab-1'} onClick = {() => this.changeTab()}>StopWatch</a></li>
-						<li><a className = {'tab-control'} href = {'#tab-2'} onClick = {() => this.changeTab()}>Results</a></li>
+						<li className = {'active'}><a className = {'tab-control'} href = {'#tab-1'} onClick = {() => this.checkButtonState('results')}>StopWatch</a></li>
+						<li><a className = {'tab-control'} href = {'#tab-2'} onClick = {() => this.changeTab('results', 'tab-1')}>Results</a></li>
 					</ul>
 				</div>
 				<a className = {'toggle-button'} href = {'#tab-list'} type = {'button'}><span>Menu</span></a>
@@ -179,10 +238,9 @@ class StopWatch extends React.Component {
 	}
 }
 
-
 class Display extends React.Component{
 	constructor(props){
-		super(props)
+		super(props);
 	}
 	
 	static propTypes = {
