@@ -16,47 +16,56 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 0.7em;
+}
+
+a:active, a:focus, a:visited {
+  color: white;
+  text-decoration: none;
+}
+
+li {
+  list-style-type: none;
+  background-color: black;
+  text-align: center;
 }
 
 .menu {
   height: 150px;
-  border: 3px solid gray;
+  display: flex;
 }
 
-#tab-list {
+.menu ul {
   height: 100%;
 }
 
-#tab-list li {
+.menu ul li {
   height: 50%;
-  font-size: 0.7em;
   font-weight: bold;
-  text-align: center;
-  color: white;
-  text-transform: uppercase;
-  text-decoration: none;
   border: 1px solid black;
-  /*padding: 10px 50px 10px 20px;*/
-  background-color: black;
 }
 
-.container {
-  width: 50%;
-  height: 150px;
-  /*position: absolute;
-	justify-content: start;
-	flex-direction: row;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);*/
-  background-color: black;
-  padding: 0px 40px 40px 40px;
-  border-radius: 5px;
+.menu ul li a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 5px;
   border: 3px solid gray;
-  box-shadow: 1px 1px 5px rgba(255, 255, 255, 0.15), 0 15px 90px 30px rgba(0, 0, 0, 0.25);
 }
 
 .toggle-button {
+  display: flex;
+  align-items: center;
+  text-align: center;
   width: 50px;
   height: 150px;
   background-color: black;
@@ -65,6 +74,17 @@
 
 .toggle-button span {
   writing-mode: vertical-lr;
+  margin: 0 auto;
+}
+
+.container {
+  width: 50%;
+  height: 150px;
+  background-color: black;
+  padding: 0px 40px 40px 40px;
+  border-radius: 5px;
+  border: 3px solid gray;
+  box-shadow: 1px 1px 5px rgba(255, 255, 255, 0.15), 0 15px 90px 30px rgba(0, 0, 0, 0.25);
 }
 
 nav {
@@ -74,24 +94,16 @@ nav {
   align-content: center;
   flex-wrap: wrap;
   white-space: nowrap;
+  margin-top: 15px;
 }
 
 nav a {
   font-size: 0.7em;
-  text-align: center;
-  color: white;
-  text-transform: uppercase;
-  text-decoration: none;
   border: 1px solid black;
   border-radius: 5px;
-  background-color: black;
   transition: all 0.8s ease-in-out;
   padding: 4px;
   flex: 1;
-}
-
-nav a:active, nav a:focus, nav a:visited {
-  color: white;
 }
 
 nav a:hover {
