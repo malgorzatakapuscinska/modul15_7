@@ -25,7 +25,7 @@ class StopWatch extends React.Component {
 				{name: 'tab-2', style: {display: "none"}},
 			],
 			buttonsState: [
-				{name: 'stopwatch', state: '', className: 'active'},
+				{name: 'stopwatch', state: 'active', className: 'active'},
 				{name: 'results', state: '', className: ''},
 			]
 		};
@@ -141,11 +141,18 @@ class StopWatch extends React.Component {
 	}
 	
 	changeTab = (value, target) => {
+	
 		console.log(value);
 		console.log(target);
+		const tabName = target;
 		const buttonName = value;
+		
 		const getTab  = (tabsState) => {
-			return (tabsState.name === 'tab-1');
+			return (tabsState.name === tabName);
+		};
+		
+		const getButton = (buttonsState) => {
+			return (buttonsState.name === buttonName);
 		};
 		
 		let buttonState = this.checkButtonState(value);
@@ -160,7 +167,7 @@ class StopWatch extends React.Component {
 					
 						// sets all tabs style property to display: none and after that changes tab-1 style value to block
 						
-		        		let tabsState = this.state.tabsState.map(state => ({ ...state, style: 'display: "none" '}));
+		        		let tabsState = this.state.tabsState.map(state => ({ ...state, style: {display: "none"}}));
 						
 						
 						let variable1 = tabsState.filter(getTab); // tablica będzie zawierać obiekt tab-1 display: none
@@ -179,9 +186,7 @@ class StopWatch extends React.Component {
 						console.log('Wartość początkowa zmiennej buttonsState');
 						console.log(buttonsState);
 					
-						const getButton = (buttonsState) => {
-							return (buttonsState.name === buttonName);
-						}
+						
 						
 						let variable2 = buttonsState.filter(getButton);
 						
@@ -198,34 +203,36 @@ class StopWatch extends React.Component {
 						break;
 					
 					case 'tab-2':
+						console.log(buttonName);
+						tabsState = this.state.tabsState.map(state => ({ ...state, style: {display: "none"}}));
+						console.log(tabsState);
 						
-						tabsState = this.state.tabsState.map(state => ({ ...state, style: 'display: "none" '}));
-						
-						variable1 = tabsState.filter(getTab); // tablica będzie zawierać obiekt tab-1 display: none
-						console.log(variable1)
-						variable1[1].style={display: "block"}; //tablica  z obiektem tab-1 display: block
-						tabsState[1] = variable1[1];				// tablica zawierająca dwa indeksy, w kazdym obiekt
+						variable1 = tabsState.filter(getTab);
+						console.log(variable1);
+						variable1[0].style={display: "block"}; 
+						tabsState[1] = variable1[1];			
 						
 						console.log(tabsState);
 						
 						this.setState({tabsState}, () => console.log(this.state.tabsState));
 						
-						//
-						
-						buttonsState = this.state.buttonsState.map(state => ({...state, state: '', className: ''}));//zeruje state i className obu tabów
+					
+						buttonsState = this.state.buttonsState.map(state => ({...state, state: '', className: ''}));
 						
 						console.log('Wartość początkowa zmiennej buttonsState');
 						console.log(buttonsState);
 						
+						
+						console.log(buttonName);
 						variable2 = buttonsState.filter(getButton);
 						
 						console.log('Wartość zmiennej variable2:');
-						console.log(variable2); // tabela zawierająca obiekt stopwatch state '' className ''
+						console.log(variable2);
 						
-						variable2[1].state = 'active';
-						variable2[1].className = 'active';
+						variable2[0].state = 'active';
+						variable2[0].className = 'active';
 						
-						buttonsState[1] = variable2[1];
+						buttonsState[1] = variable2[0];
 						
 						this.setState({buttonsState}, () => console.log(this.state.buttonsState));
 			
@@ -321,7 +328,7 @@ class Display extends React.Component{
 
 class Results extends React.Component{
 	constructor(props){
-		super(props)
+		super(props);
 	}
 	
 	static propTypes = {
@@ -332,12 +339,13 @@ class Results extends React.Component{
 	}
 	
 	render () {
-		let tab2Styles = this.props.styles;
+		let tab2Styles = this.props.styles.style;
+		console.log(tab2Styles);
 		let results = this.props.history.map( ele  => { 
 		return React.createElement('li', {key: ele.id}, ele.record)
 	});
 		return (
-				React.createElement('ol', {className: 'results',  style: {tab2Styles}},
+				React.createElement('ol', {className: 'results',  style: tab2Styles},
 
 				React.createElement('p', {}, "Results"), 
 
