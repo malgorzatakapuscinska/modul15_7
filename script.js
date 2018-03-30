@@ -21,12 +21,12 @@ class StopWatch extends React.Component {
 			},
 			
 			tabsState: [
-				{name: 'tab-1', style: 'display: "block"'},
-				{name: 'tab-2', style: 'display: "none"'},
+				{name: 'tab-1', style: {display: "block"}},
+				{name: 'tab-2', style: {display: "none"}},
 			],
 			buttonsState: [
-				{name: 'stopwatch', state: 'active', className: 'active'},
-				{name: 'results', state: 'not active', className: ''},
+				{name: 'stopwatch', state: '', className: 'active'},
+				{name: 'results', state: '', className: ''},
 			]
 		};
 		
@@ -143,6 +143,11 @@ class StopWatch extends React.Component {
 	changeTab = (value, target) => {
 		console.log(value);
 		console.log(target);
+		const buttonName = value;
+		const getTab  = (tabsState) => {
+			return (tabsState.name === 'tab-1');
+		};
+		
 		let buttonState = this.checkButtonState(value);
 		console.log(buttonState);
 		
@@ -150,24 +155,82 @@ class StopWatch extends React.Component {
 		}else {
 			
 				switch(target){
+				
 					case 'tab-1':
-							//stan tabów
-							
-								// TAB-1 
-								
-					const tabsState =  [
-	        		{ name: 'tab-1', style: 'display: "block"' },
-	        		{ name: 'tab-2', style: 'display: "none"' },];
-	        		
-	        		
-			  		
-			  		console.log(mapWork);
+					
+						// sets all tabs style property to display: none and after that changes tab-1 style value to block
+						
+		        		let tabsState = this.state.tabsState.map(state => ({ ...state, style: 'display: "none" '}));
+						
+						
+						let variable1 = tabsState.filter(getTab); // tablica będzie zawierać obiekt tab-1 display: none
+						console.log(variable1)
+						variable1[0].style={display: "block"}; //tablica  z obiektem tab-1 display: block
+						tabsState[0] = variable1[0];				// tablica zawierająca dwa indeksy, w kazdym obiekt
+						
+						console.log(tabsState);
+						
+						this.setState({tabsState}, () => console.log(this.state.tabsState));
+						
+						//
+						
+						let buttonsState = this.state.buttonsState.map(state => ({...state, state: '', className: ''}));//zeruje state i className obu tabów
+						
+						console.log('Wartość początkowa zmiennej buttonsState');
+						console.log(buttonsState);
+					
+						const getButton = (buttonsState) => {
+							return (buttonsState.name === buttonName);
+						}
+						
+						let variable2 = buttonsState.filter(getButton);
+						
+						console.log('Wartość zmiennej variable2:');
+						console.log(variable2); // tabela zawierająca obiekt stopwatch state '' className ''
+						
+						variable2[0].state = 'active';
+						variable2[0].className = 'active';
+						
+						buttonsState[0] = variable2[0];
+						
+						this.setState({buttonsState}, () => console.log(this.state.buttonsState));
 			
-	 				this.setState({
-			 			tabsState: tabsState.map(state => ({...state, style: 'display: "none" '}))
-			  			});
-					});
-					console.log(this.state.tabsState);
+						break;
+					
+					case 'tab-2':
+						
+						tabsState = this.state.tabsState.map(state => ({ ...state, style: 'display: "none" '}));
+						
+						variable1 = tabsState.filter(getTab); // tablica będzie zawierać obiekt tab-1 display: none
+						console.log(variable1)
+						variable1[1].style={display: "block"}; //tablica  z obiektem tab-1 display: block
+						tabsState[1] = variable1[1];				// tablica zawierająca dwa indeksy, w kazdym obiekt
+						
+						console.log(tabsState);
+						
+						this.setState({tabsState}, () => console.log(this.state.tabsState));
+						
+						//
+						
+						buttonsState = this.state.buttonsState.map(state => ({...state, state: '', className: ''}));//zeruje state i className obu tabów
+						
+						console.log('Wartość początkowa zmiennej buttonsState');
+						console.log(buttonsState);
+						
+						variable2 = buttonsState.filter(getButton);
+						
+						console.log('Wartość zmiennej variable2:');
+						console.log(variable2); // tabela zawierająca obiekt stopwatch state '' className ''
+						
+						variable2[1].state = 'active';
+						variable2[1].className = 'active';
+						
+						buttonsState[1] = variable2[1];
+						
+						this.setState({buttonsState}, () => console.log(this.state.buttonsState));
+			
+						break;
+						
 				}
 		}
 	}
@@ -208,18 +271,20 @@ class StopWatch extends React.Component {
 	}*/
 	
 	render = () => {
-		
+		let tab1Styles = this.state.tabsState[0].style;		
+	
+		console.log(tab1Styles);
 		return (
 			<div className = {'app-container'}>
 				<div className = {'menu'}>
 					<ul id = {'tab-list'}>
-						<li className = {'active'}><a className = {'tab-control'} href = {'#tab-1'} onClick = {() => this.checkButtonState('results')}>StopWatch</a></li>
-						<li><a className = {'tab-control'} href = {'#tab-2'} onClick = {() => this.changeTab('results', 'tab-1')}>Results</a></li>
+						<li className = {'active'}><a className = {'tab-control'} href = {'#tab-1'} onClick = {() => this.changeTab('stopwatch', 'tab-1')}>StopWatch</a></li>
+						<li><a className = {'tab-control'} href = {'#tab-2'} onClick = {() => this.changeTab('results', 'tab-2')}>Results</a></li>
 					</ul>
 				</div>
 				<a className = {'toggle-button'} href = {'#tab-list'} type = {'button'}><span>Menu</span></a>
 				<div className = {'container'}>
-					<div className = {'tab-panel'} id = {'tab-1'} style = {this.state.tab1Style}>
+					<div className = {'tab-panel'} id = {'tab-1'} style = {tab1Styles}>
 						<nav>
 							<a href = {'#'} className = {'button'} id = {'start'} onClick = {() => this.start()}>start</a>
 							<a href = {'#'} className = {'button'} id = {'stop'} onClick = {() => {this.stop()}}>stop</a>
@@ -229,7 +294,7 @@ class StopWatch extends React.Component {
 		 				</nav>
 						<Display time={this.format()}></Display>
 					</div>
-					<Results history = {this.state.history} style = {this.state.tab2Style} className = {'tab-panel'} id = {'tab-2'}></Results>
+					<Results history = {this.state.history} styles = {this.state.tabsState[1]} className = {'tab-panel'} id = {'tab-2'}></Results>
 				</div>
 				
 			</div>
@@ -262,20 +327,22 @@ class Results extends React.Component{
 	static propTypes = {
 
 		history: React.PropTypes.array.isRequired,
-		style: React.PropTypes.object.isRequired
+		styles: React.PropTypes.object.isRequired
 
 	}
 	
 	render () {
-		let tab2style =  this.props.style;
-		console.log(tab2style);
+		let tab2Styles = this.props.styles;
 		let results = this.props.history.map( ele  => { 
 		return React.createElement('li', {key: ele.id}, ele.record)
 	});
 		return (
-			React.createElement('ol', {className: 'results', style: tab2style},
+				React.createElement('ol', {className: 'results',  style: {tab2Styles}},
+
 				React.createElement('p', {}, "Results"), 
+
 				results
+
 			)
 		);
 	} 
