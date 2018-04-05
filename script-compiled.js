@@ -120,29 +120,6 @@ var StopWatch = function (_React$Component) {
 				'div',
 				{ className: 'container' },
 				React.createElement(
-					'ul',
-					{ className: 'tab-list' },
-					React.createElement(
-						'li',
-						{ className: 'active' },
-						' ',
-						React.createElement(
-							'a',
-							{ className: 'tab-control', href: 'tab-1' },
-							'StopWatch'
-						)
-					),
-					React.createElement(
-						'li',
-						null,
-						React.createElement(
-							'a',
-							{ className: 'tab-control', href: 'tab-2' },
-							'Results'
-						)
-					)
-				),
-				React.createElement(
 					'div',
 					{ className: 'tab-panel active', id: 'tab-1' },
 					React.createElement(

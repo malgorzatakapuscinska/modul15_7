@@ -111,11 +111,6 @@ class StopWatch extends React.Component {
 	render = () => {
 		return (
 			<div className = {'container'}>
-				<ul className = {'tab-list'}>
-					<li className = {'active'}> <a className = {'tab-control'} href = {'tab-1'}>StopWatch</a></li>
-					<li><a className = {'tab-control'} href = {'tab-2'}>Results</a></li>
-					
-				</ul>
 				<div className = {'tab-panel active'} id = {'tab-1'}>
 					<nav>
 						<a href = {'#'} className = {'button'} id = {'start'} onClick = {() => this.start()}>start</a>
