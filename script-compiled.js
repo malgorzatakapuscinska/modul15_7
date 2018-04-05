@@ -156,10 +156,12 @@ var StopWatch = function (_React$Component) {
 					case 'tab-1':
 
 						// sets all tabs style property to display: none and after that changes tab-1 style value to block
-
+						console.log("tab-1");
+						console.log(buttonName);
 						var tabsState = _this.state.tabsState.map(function (state) {
 							return _extends({}, state, { style: { display: "none" } });
 						});
+						console.log(tabsState);
 
 						var variable1 = tabsState.filter(getTab); // tablica będzie zawierać obiekt tab-1 display: none
 						console.log(variable1);
@@ -198,7 +200,9 @@ var StopWatch = function (_React$Component) {
 						break;
 
 					case 'tab-2':
+						console.log('Tab-2');
 						console.log(buttonName);
+						console.log(_this.state.tabsState);
 						tabsState = _this.state.tabsState.map(function (state) {
 							return _extends({}, state, { style: { display: "none" } });
 						});

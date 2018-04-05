@@ -33,6 +33,5 @@
     "parallelshell": "^3.0.2"
   },
   "dependencies": {
-    "browser-sync": "^2.23.6"
   }
 }
