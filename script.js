@@ -213,7 +213,7 @@ class StopWatch extends React.Component {
 						variable1 = tabsState.filter(getTab);
 						console.log(variable1);
 						variable1[0].style={display: "block"}; 
-						tabsState[1] = variable1[1];			
+						tabsState[1] = variable1[0];			
 						
 						console.log(tabsState);
 						
