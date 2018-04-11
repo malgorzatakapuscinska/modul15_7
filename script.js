@@ -15,25 +15,14 @@ class StopWatch extends React.Component {
 				display: 'block',
 				className: 'active',
 			},
-			tab2Style: {
-				display: 'none',
-				classname: '',
-			},
-			
-			tabsState: [
-				{name: 'tab-1', style: {display: "block"}},
-				{name: 'tab-2', style: {display: "none"}},
-			],
-			buttonsState: [
-				{name: 'stopwatch', state: 'active', className: 'active'},
-				{name: 'results', state: '', className: ''},
+			tabs: [
+				{ name: 'tab-1', style: { display: 'block'} },
+				{ name: 'tab-2', style: { display: 'none'}}
 			]
 		};
 		
 	}
 
-	
-	
 	reset = () => {
 		this.setState({
 			times: {
@@ -140,156 +129,30 @@ class StopWatch extends React.Component {
 		return `${buttonState}`;
 	}
 	
-	changeTab = (value, target) => {
-	
-		console.log(value);
-		console.log(target);
-		const tabName = target;
-		const buttonName = value;
-		
-		const getTab  = (tabsState) => {
-			return (tabsState.name === tabName);
-		};
-		
-		const getButton = (buttonsState) => {
-			return (buttonsState.name === buttonName);
-		};
-		
-		let buttonState = this.checkButtonState(value);
-		console.log(buttonState);
-		
-		if(buttonState === 'active'){return;
-		}else {
-			
-				switch(target){
-				
-					case 'tab-1':
-						
-						// sets all tabs style property to display: none and after that changes tab-1 style value to block
-						console.log("tab-1")
-						console.log(buttonName);
-		        		let tabsState = this.state.tabsState.map(state => ({ ...state, style: {display: "none"}}));
-						console.log(tabsState);
-						
-						let variable1 = tabsState.filter(getTab); // tablica będzie zawierać obiekt tab-1 display: none
-						console.log(variable1)
-						variable1[0].style={display: "block"}; //tablica  z obiektem tab-1 display: block
-						tabsState[0] = variable1[0];				// tablica zawierająca dwa indeksy, w kazdym obiekt
-						
-						console.log(tabsState);
-						
-						this.setState({tabsState}, () => console.log(this.state.tabsState));
-						
-						//
-						
-						let buttonsState = this.state.buttonsState.map(state => ({...state, state: '', className: ''}));//zeruje state i className obu tabów
-						
-						console.log('Wartość początkowa zmiennej buttonsState');
-						console.log(buttonsState);
-					
-						
-						
-						let variable2 = buttonsState.filter(getButton);
-						
-						console.log('Wartość zmiennej variable2:');
-						console.log(variable2); // tabela zawierająca obiekt stopwatch state '' className ''
-						
-						variable2[0].state = 'active';
-						variable2[0].className = 'active';
-						
-						buttonsState[0] = variable2[0];
-						
-						this.setState({buttonsState}, () => console.log(this.state.buttonsState));
-			
-						break;
-					
-					case 'tab-2':
-						console.log('Tab-2')
-						console.log(buttonName);
-						console.log(this.state.tabsState);
-						tabsState = this.state.tabsState.map(state => ({ ...state, style: {display: "none"}}));
-						console.log(tabsState);
-						
-						variable1 = tabsState.filter(getTab);
-						console.log(variable1);
-						variable1[0].style={display: "block"}; 
-						tabsState[1] = variable1[0];			
-						
-						console.log(tabsState);
-						
-						this.setState({tabsState}, () => console.log(this.state.tabsState));
-						
-					
-						buttonsState = this.state.buttonsState.map(state => ({...state, state: '', className: ''}));
-						
-						console.log('Wartość początkowa zmiennej buttonsState');
-						console.log(buttonsState);
-						
-						
-						console.log(buttonName);
-						variable2 = buttonsState.filter(getButton);
-						
-						console.log('Wartość zmiennej variable2:');
-						console.log(variable2);
-						
-						variable2[0].state = 'active';
-						variable2[0].className = 'active';
-						
-						buttonsState[1] = variable2[0];
-						
-						this.setState({buttonsState}, () => console.log(this.state.buttonsState));
-			
-						break;
-						
-				}
-		}
+	changeTab = (tab) => {
+	console.log(tab);
+		const tabs = this.state.tabs;
+		let activeTabIndex = tabs.findIndex((item) => item.style.display=='block');
+		console.log(activeTabIndex);
+		let clickedTabIndex = tabs.findIndex((item) => item.name==tab);
+		console.log(clickedTabIndex);
+		tabs[activeTabIndex].style.display = 'none'
+		tabs[clickedTabIndex].style.display = 'block'
+		this.setState({ tabs});
 	}
 	
-	/*changeTab = (button, switch_Target ) => {
-	console.log(this.state.activeTab);
-		let state = this.state.activeTab;
-		if(state === 'tab-1'){
-			this.state.activeTab = 'tab-2';
-			this.setState({
-				tab2Style: {
-					display: 'block',
-					className: 'active'
-				}
-			});
-			this.setState({
-				tab1Style: {
-					display: 'none',
-					className: ''
-				}
-			});
-			console.log(this.state.activeTab);
-			console.log(this.state.tab2Style);
-			console.log(this.state.tab1Style);
-		}else {
-			this.state.activeTab = 'tab-1';
-			this.setState({
-					tab2Style: {
-						display: 'none',
-					}
-			});
-			this.setState({
-					tab1Style: {
-						display: 'block',
-					}
-			});
-		}
-	}*/
+	
 	
 	render = () => {
-		let tab1Styles = this.state.tabsState[0].style;		
+		let tab1Styles = this.state.tabs[0].style;		
 	
 		console.log(tab1Styles);
 		return (
 			<div className = {'app-container'}>
 				<div className = {'menu'}>
 					<ul id = {'tab-list'}>
-						<li className = {'active'}><a className = {'tab-control'} href = {'#tab-1'} onClick = {() => this.changeTab('stopwatch', 'tab-1')}>StopWatch</a></li>
-						<li><a className = {'tab-control'} href = {'#tab-2'} onClick = {() => this.changeTab('results', 'tab-2')}>Results</a></li>
+						<li className = {'active'}><a className = {'tab-control'} href = {'#tab-1'} onClick = {() => this.changeTab('tab-1')}>StopWatch</a></li>
+						<li><a className = {'tab-control'} href = {'#tab-2'} onClick = {() => this.changeTab('tab-2')}>Results</a></li>
 					</ul>
 				</div>
 				<a className = {'toggle-button'} href = {'#tab-list'} type = {'button'}><span>Menu</span></a>
@@ -304,7 +167,7 @@ class StopWatch extends React.Component {
 		 				</nav>
 						<Display time={this.format()}></Display>
 					</div>
-					<Results history = {this.state.history} styles = {this.state.tabsState[1]} className = {'tab-panel'} id = {'tab-2'}></Results>
+					<Results history = {this.state.history} styles = {this.state.tabs[1]} className = {'tab-panel'} id = {'tab-2'}></Results>
 				</div>
 				
 			</div>

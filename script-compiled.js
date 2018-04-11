@@ -2,8 +2,6 @@
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -129,126 +127,24 @@ var StopWatch = function (_React$Component) {
 			return '' + buttonState;
 		};
 
-		_this.changeTab = function (value, target) {
-
-			console.log(value);
-			console.log(target);
-			var tabName = target;
-			var buttonName = value;
-
-			var getTab = function getTab(tabsState) {
-				return tabsState.name === tabName;
-			};
-
-			var getButton = function getButton(buttonsState) {
-				return buttonsState.name === buttonName;
-			};
-
-			var buttonState = _this.checkButtonState(value);
-			console.log(buttonState);
-
-			if (buttonState === 'active') {
-				return;
-			} else {
-
-				switch (target) {
-
-					case 'tab-1':
-
-						// sets all tabs style property to display: none and after that changes tab-1 style value to block
-						console.log("tab-1");
-						console.log(buttonName);
-						var tabsState = _this.state.tabsState.map(function (state) {
-							return _extends({}, state, { style: { display: "none" } });
-						});
-						console.log(tabsState);
-
-						var variable1 = tabsState.filter(getTab); // tablica będzie zawierać obiekt tab-1 display: none
-						console.log(variable1);
-						variable1[0].style = { display: "block" }; //tablica  z obiektem tab-1 display: block
-						tabsState[0] = variable1[0]; // tablica zawierająca dwa indeksy, w kazdym obiekt
-
-						console.log(tabsState);
-
-						_this.setState({ tabsState: tabsState }, function () {
-							return console.log(_this.state.tabsState);
-						});
-
-						//
-
-						var buttonsState = _this.state.buttonsState.map(function (state) {
-							return _extends({}, state, { state: '', className: '' });
-						}); //zeruje state i className obu tabów
-
-						console.log('Wartość początkowa zmiennej buttonsState');
-						console.log(buttonsState);
-
-						var variable2 = buttonsState.filter(getButton);
-
-						console.log('Wartość zmiennej variable2:');
-						console.log(variable2); // tabela zawierająca obiekt stopwatch state '' className ''
-
-						variable2[0].state = 'active';
-						variable2[0].className = 'active';
-
-						buttonsState[0] = variable2[0];
-
-						_this.setState({ buttonsState: buttonsState }, function () {
-							return console.log(_this.state.buttonsState);
-						});
-
-						break;
-
-					case 'tab-2':
-						console.log('Tab-2');
-						console.log(buttonName);
-						console.log(_this.state.tabsState);
-						tabsState = _this.state.tabsState.map(function (state) {
-							return _extends({}, state, { style: { display: "none" } });
-						});
-						console.log(tabsState);
-
-						variable1 = tabsState.filter(getTab);
-						console.log(variable1);
-						variable1[0].style = { display: "block" };
-						tabsState[1] = variable1[0];
-
-						console.log(tabsState);
-
-						_this.setState({ tabsState: tabsState }, function () {
-							return console.log(_this.state.tabsState);
-						});
-
-						buttonsState = _this.state.buttonsState.map(function (state) {
-							return _extends({}, state, { state: '', className: '' });
-						});
-
-						console.log('Wartość początkowa zmiennej buttonsState');
-						console.log(buttonsState);
-
-						console.log(buttonName);
-						variable2 = buttonsState.filter(getButton);
-
-						console.log('Wartość zmiennej variable2:');
-						console.log(variable2);
-
-						variable2[0].state = 'active';
-						variable2[0].className = 'active';
-
-						buttonsState[1] = variable2[0];
-
-						_this.setState({ buttonsState: buttonsState }, function () {
-							return console.log(_this.state.buttonsState);
-						});
-
-						break;
-
-				}
-			}
+		_this.changeTab = function (tab) {
+			console.log(tab);
+			var tabs = _this.state.tabs;
+			var activeTabIndex = tabs.findIndex(function (item) {
+				return item.style.display == 'block';
+			});
+			console.log(activeTabIndex);
+			var clickedTabIndex = tabs.findIndex(function (item) {
+				return item.name == tab;
+			});
+			console.log(clickedTabIndex);
+			tabs[activeTabIndex].style.display = 'none';
+			tabs[clickedTabIndex].style.display = 'block';
+			_this.setState({ tabs: tabs });
 		};
 
 		_this.render = function () {
-			var tab1Styles = _this.state.tabsState[0].style;
+			var tab1Styles = _this.state.tabs[0].style;
 
 			console.log(tab1Styles);
 			return React.createElement(
@@ -266,7 +162,7 @@ var StopWatch = function (_React$Component) {
 							React.createElement(
 								'a',
 								{ className: 'tab-control', href: '#tab-1', onClick: function onClick() {
-										return _this.changeTab('stopwatch', 'tab-1');
+										return _this.changeTab('tab-1');
 									} },
 								'StopWatch'
 							)
@@ -277,7 +173,7 @@ var StopWatch = function (_React$Component) {
 							React.createElement(
 								'a',
 								{ className: 'tab-control', href: '#tab-2', onClick: function onClick() {
-										return _this.changeTab('results', 'tab-2');
+										return _this.changeTab('tab-2');
 									} },
 								'Results'
 							)
@@ -340,7 +236,7 @@ var StopWatch = function (_React$Component) {
 						),
 						React.createElement(Display, { time: _this.format() })
 					),
-					React.createElement(Results, { history: _this.state.history, styles: _this.state.tabsState[1], className: 'tab-panel', id: 'tab-2' })
+					React.createElement(Results, { history: _this.state.history, styles: _this.state.tabs[1], className: 'tab-panel', id: 'tab-2' })
 				)
 			);
 		};
@@ -359,52 +255,11 @@ var StopWatch = function (_React$Component) {
 				display: 'block',
 				className: 'active'
 			},
-			tab2Style: {
-				display: 'none',
-				classname: ''
-			},
-
-			tabsState: [{ name: 'tab-1', style: { display: "block" } }, { name: 'tab-2', style: { display: "none" } }],
-			buttonsState: [{ name: 'stopwatch', state: 'active', className: 'active' }, { name: 'results', state: '', className: '' }]
+			tabs: [{ name: 'tab-1', style: { display: 'block' } }, { name: 'tab-2', style: { display: 'none' } }]
 		};
 
 		return _this;
 	}
-
-	/*changeTab = (button, switch_Target ) => {
- console.log(this.state.activeTab);
- 	let state = this.state.activeTab;
- 	if(state === 'tab-1'){
- 		this.state.activeTab = 'tab-2';
- 		this.setState({
- 			tab2Style: {
- 				display: 'block',
- 				className: 'active'
- 			}
- 		});
- 		this.setState({
- 			tab1Style: {
- 				display: 'none',
- 				className: ''
- 			}
- 		});
- 		console.log(this.state.activeTab);
- 		console.log(this.state.tab2Style);
- 		console.log(this.state.tab1Style);
- 	}else {
- 		this.state.activeTab = 'tab-1';
- 		this.setState({
- 				tab2Style: {
- 					display: 'none',
- 				}
- 		});
- 		this.setState({
- 				tab1Style: {
- 					display: 'block',
- 				}
- 		});
- 	}
- }*/
 
 	return StopWatch;
 }(React.Component);
